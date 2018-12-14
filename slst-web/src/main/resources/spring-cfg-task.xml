@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/task
+    http://www.springframework.org/schema/task/spring-task.xsd">
+
+    <task:scheduled-tasks>
+        <!--每个客户每天到每个店铺的统计-->
+        <task:scheduled ref="customerStoreStatsTask" method="execute" cron="${customer.store.stats.cron}"/>
+        <!--每个店铺每天到的客户统计-->
+        <task:scheduled ref="storeCustomerStatsTask" method="execute" cron="${store.customer.stats.cron}"/>
+        <!--每月一日结算语音服务租赁费用-->
+        <task:scheduled ref="callRentCostTask" method="execute" cron="${call.rent.cost.corn}"/>
+    </task:scheduled-tasks>
+
+</beans>

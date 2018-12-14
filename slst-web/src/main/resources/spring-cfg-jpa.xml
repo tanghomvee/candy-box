@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:master-slave="http://shardingsphere.io/schema/shardingsphere/masterslave"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+          				   http://www.springframework.org/schema/tx
+          				   http://www.springframework.org/schema/tx/spring-tx.xsd
+          				   http://www.springframework.org/schema/data/jpa
+          				   http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+                           http://shardingsphere.io/schema/shardingsphere/masterslave
+                           http://shardingsphere.io/schema/shardingsphere/masterslave/master-slave.xsd">
+
+    <bean id="dbConfig" class="com.alibaba.druid.pool.DruidDataSource" abstract="true" init-method="init" destroy-method="close">
+        <property name="filters" value="${db.filters}" />
+        <property name="maxActive" value="${db.maxActive}" />
+        <property name="initialSize" value="${db.initialSize}" />
+        <property name="maxWait" value="${db.maxWait}" />
+        <property name="minIdle" value="${db.minIdle}" />
+        <property name="timeBetweenEvictionRunsMillis" value="${db.timeBetweenEvictionRunsMillis}"/>
+        <property name="minEvictableIdleTimeMillis" value="${db.minEvictableIdleTimeMillis}"/>
+        <property name="validationQuery" value="${db.validationQuery}"/>
+        <property name="testWhileIdle" value="${db.testWhileIdle}"/>
+        <property name="testOnBorrow" value="${db.testOnBorrow}"/>
+        <property name="testOnReturn" value="${db.testOnReturn}"/>
+        <property name="poolPreparedStatements" value="${db.poolPreparedStatements}"/>
+        <property name="maxOpenPreparedStatements" value="${db.maxOpenPreparedStatements}"/>
+
+    </bean>
+
+    <!--1 配置数据源 -->
+    <bean id="${datasource.slst.master.key}"  parent="dbConfig">
+        <property name="driverClassName" value="${slst.db.master.driver}" />
+        <property name="url" value="${slst.db.master.url}" />
+        <property name="username" value="${slst.db.master.username}" />
+        <property name="password" value="${slst.db.master.password}" />
+    </bean>
+
+    <bean id="${datasource.slst.slave.key}" parent="dbConfig">
+        <property name="driverClassName" value="${slst.db.slave.driver}" />
+        <property name="url" value="${slst.db.slave.url}" />
+        <property name="username" value="${slst.db.slave.username}" />
+        <property name="password" value="${slst.db.slave.password}" />
+    </bean>
+
+    <!--2 配置数据源的选择策略 -->
+    <bean id="randomStrategy" class="io.shardingsphere.core.api.algorithm.masterslave.RandomMasterSlaveLoadBalanceAlgorithm" />
+    <master-slave:data-source id="masterSlaveDataSource"
+                              master-data-source-name="${datasource.slst.master.key}"
+                              slave-data-source-names="${datasource.slst.slave.key}"
+                              strategy-ref="randomStrategy" />
+
+    <!--3 Spring整合jpa -->
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="masterSlaveDataSource" />
+        <property name="packagesToScan"  >
+            <list>
+                <value>com.slst.**.dao.model</value>
+            </list>
+        </property>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="generateDdl" value="false" />
+                <property name="showSql" value="${db.showSql}" />
+            </bean>
+        </property>
+        <property name="jpaDialect">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
+        </property>
+        <property name="jpaPropertyMap">
+            <map>
+                <entry key="hibernate.query.substitutions" value="true 1, false 0" />
+                <entry key="hibernate.default_batch_fetch_size" value="16" />
+                <entry key="hibernate.max_fetch_depth" value="2" />
+                <entry key="hibernate.generate_statistics" value="true" />
+                <entry key="hibernate.bytecode.use_reflection_optimizer" value="true" />
+                <entry key="hibernate.cache.use_second_level_cache" value="false" />
+                <entry key="hibernate.cache.use_query_cache" value="false" />
+                <entry key="hibernate.id.new_generator_mappings" value="false"/>
+                <entry key="hibernate.dialect.storage_engine" value="innodb"/>
+                <entry key="hibernate.dialect" value="org.hibernate.dialect.MySQL57Dialect"/>
+            </map>
+        </property>
+    </bean>
+    <!--4 事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+    <!--5 采用注释的方式管理事务-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <!-- 在服务启动时，将dao层接加入到容器管理中。ExtImpl（如果有实现类的话） -->
+    <jpa:repositories base-package="com.slst.**.dao"
+                      query-lookup-strategy="create-if-not-found" repository-impl-postfix="ExtImpl"
+                      entity-manager-factory-ref="entityManagerFactory"
+                      transaction-manager-ref="transactionManager">
+    </jpa:repositories>
+
+
+
+</beans>
