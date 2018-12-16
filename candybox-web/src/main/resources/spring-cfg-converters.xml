@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+	default-autowire="byName">
+	
+	<!-- 数据转换器配置 -->
+	<!-- 字符串转换器 -->
+	<bean id="stringHttpMessageConverter" class="org.springframework.http.converter.StringHttpMessageConverter">
+        <constructor-arg value="${default.charset}" index="0"/>
+        <!--避免出现乱码 -->  
+        <property name="supportedMediaTypes">  
+            <list>  
+                <value>text/plain;charset=${default.charset}</value>  
+            </list>  
+        </property>  
+    </bean>
+    <!-- XML串转换器 -->
+	<!--<bean id="xmlMessageConverter" class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
+        <property name="marshaller">
+            <bean class="org.springframework.oxm.xstream.XStreamMarshaller">
+                &lt;!&ndash; 启用annotation &ndash;&gt;
+                <property name="autodetectAnnotations" value="true" />
+                &lt;!&ndash; 类名别名 &ndash;&gt;
+                <property name="aliases">
+                    <map>
+                        &lt;!&ndash; Vender这个类的别名就变成了vender，那么转换后的xml中就是vender &ndash;&gt;
+                        <entry key="vender" value="com.dmall.homvee.dao.domain.Vender" />
+                    </map>
+                </property>
+                &lt;!&ndash; 基本属性别名 &ndash;&gt;
+                <property name="fieldAliases">
+                    <map>
+                        &lt;!&ndash; Vender中的createTime这个属性 &ndash;&gt;
+                        <entry key="com.dmall.homvee.dao.domain.Vender.createTime" value="birthday" />
+                    </map>
+                </property>
+            </bean>
+        </property>
+    </bean>-->
+
+
+    <!-- FastJson转换器 -->
+    <bean id="fastJsonCfg" class="com.alibaba.fastjson.support.config.FastJsonConfig">
+        <property name="serializerFeatures">
+            <list>
+                <!--序列化保留null-->
+                <value>WriteMapNullValue</value>
+                <value>QuoteFieldNames</value>
+                <value>WriteDateUseDateFormat</value>
+                <value>WriteNullStringAsEmpty</value>
+            </list>
+        </property>
+        <property name="features">
+            <list>
+                <!--按字段顺序进行反序列化-->
+                <value>OrderedField</value>
+            </list>
+        </property>
+    </bean>
+    <bean id="fastJsonHttpMessageConverter" class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+        <property name="supportedMediaTypes">
+            <list>
+                <value>application/json;charset=${default.charset}</value>
+                <!-- 避免IE出现下载JSON文件的情况 -->
+                <value>text/html;charset=${default.charset}</value>
+            </list>
+        </property>
+        <property name="fastJsonConfig" ref="fastJsonCfg"/>
+    </bean>
+
+</beans>

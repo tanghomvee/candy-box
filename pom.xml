@@ -1,24 +1,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.slst</groupId>
-    <artifactId>slst</artifactId>
+    <groupId>com.candybox</groupId>
+    <artifactId>candybox</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>slst</name>
+    <name>candy-box</name>
     <packaging>pom</packaging>
 
     <modules>
-        <module>slst-common</module>
-        <module>slst-vender</module>
-        <module>slst-customer</module>
-        <module>slst-user</module>
-        <module>slst-agent</module>
-        <module>slst-account</module>
-        <module>slst-market</module>
-        <module>slst-web</module>
-        <module>slst-data-collector</module>
-        <module>slst-report</module>
-        <module>slst-device</module>
+        <module>candybox-common</module>
+        <module>candybox-user</module>
+        <module>candybox-web</module>
     </modules>
     <properties>
          <!--Project constant-->

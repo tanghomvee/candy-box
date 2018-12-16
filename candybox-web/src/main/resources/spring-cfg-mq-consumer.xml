@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+
+
+    <bean id="consumerConfig" abstract="true">
+        <property name="nameSrvAddrs" value="${mq.srv.addr}"/>
+    </bean>
+
+    <bean id="soundToothCallConsumerService" parent="consumerConfig" class="com.homvee.livebroadcast.common.mq.consumer.impl.DefaultConsumerServiceImpl">
+        <property name="consumerGroupName" value="${mq.soundtooth.consumer.gname}"/>
+        <property name="consumerName" value="${mq.soundtooth.consumer.name}"/>
+        <property name="topic" value="${mq.soundtooth.consumer.topic.call}"/>
+        <property name="messageListener" ref="soundToothCallListener"/>
+    </bean>
+
+
+</beans>

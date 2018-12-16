@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+
+    <bean id="mqConfig" abstract="true">
+        <property name="nameSrvAddrs" value="${mq.srv.addr}" />
+        <property name="timeout" value="${mq.timeout}" />
+        <property name="retryTimes" value="${mq.retrytimes}" />
+        <property name="producerGroupName" value="${mq.producer.gname}" />
+        <property name="checkThreadPoolMinSize" value="${mq.check.min}" />
+        <property name="checkThreadPoolMaxSize" value="${mq.check.max}" />
+    </bean>
+    <!--通用 生产者-->
+    <bean id="defaultProducerService"  parent="mqConfig" class="com.homvee.livebroadcast.common.mq.producer.impl.DefaultProducerServiceImpl">
+        <property name="producerName" value="${mq.producer.name}" />
+    </bean>
+
+
+
+
+</beans>

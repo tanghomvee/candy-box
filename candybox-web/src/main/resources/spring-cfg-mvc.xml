@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd"
+	default-autowire="byName">
+
+	<context:component-scan base-package="com.homvee.livebroadcast.web.ctrls"/>
+
+	<mvc:default-servlet-handler/>
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<!--如果系统配置和properties配置中存在相同的key 以系统为主-->
+		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+		<property name="ignoreResourceNotFound" value="true" />
+		<property name="locations">
+			<list>
+				<value>classpath*:runtime.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<mvc:annotation-driven conversion-service="conversionService">
+		<mvc:message-converters register-defaults="true">
+			<ref bean="stringHttpMessageConverter"/>
+			<ref bean="fastJsonHttpMessageConverter"/>
+			<!--<ref bean="xmlMessageConverter"/>-->
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+	<!--数据格式化工具-->
+	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<property name="converters">
+			<set>
+				<bean class="com.homvee.livebroadcast.web.converters.DateConverter"/>
+			</set>
+		</property>
+	</bean>
+
+	<!-- 静态资源缓存 -->
+	<!--<mvc:resources location="/resources/" mapping="/resources/**" cache-period="864000"/>-->
+	<mvc:resources location="/static/css/" mapping="/static/css/**" cache-period="864000"/>
+	<mvc:resources location="/static/img/" mapping="/static/img/**" cache-period="864000"/>
+	<mvc:resources location="/static/fonts/" mapping="/static/fonts/**" cache-period="864000"/>
+	<mvc:resources location="/static/js/" mapping="/static/js/**" cache-period="864000"/>
+	<mvc:resources location="/" mapping="/index.html"/>
+
+	<!--权限配置-->
+	<mvc:interceptors>
+		<!--&lt;!&ndash;登陆拦截&ndash;&gt;-->
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<mvc:exclude-mapping path="/user/login" /><!--账号登录 -->
+			<mvc:exclude-mapping path="/content/chat/**" />
+			<mvc:exclude-mapping path="/sms/**" />
+			<mvc:exclude-mapping path="/index.html" />
+			<mvc:exclude-mapping path="/static/**" />
+			<mvc:exclude-mapping path="/favicon.ico" />
+			<mvc:exclude-mapping path="/readme.md" />
+
+			<bean class="com.homvee.livebroadcast.web.interceptors.UsrLoginInterceptor"/>
+		</mvc:interceptor>
+
+		<!--&lt;!&ndash;权限拦截&ndash;&gt;
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="com.slst.user.web.interceptors.UsrAuthInterceptor"/>
+		</mvc:interceptor>-->
+	</mvc:interceptors>
+
+	<import resource="spring-cfg-converters.xml"/>
+	<import resource="spring-cfg-view.xml"/>
+</beans>
