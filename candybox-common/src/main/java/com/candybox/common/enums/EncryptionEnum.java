@@ -38,14 +38,6 @@ public enum EncryptionEnum {
             byte[] encrypted = EncryptionEnum.getMD5(data);
             return new BigInteger(encrypted).toString(16);
         }
-    },
-
-    MD5_32BIT(){
-        @Override
-        public String encrypt(String data) throws Exception {
-            byte[] encrypted = EncryptionEnum.getMD5(data);
-            return EncryptionEnum.toHexString(encrypted);
-        }
     }
 
     ;
@@ -62,16 +54,6 @@ public enum EncryptionEnum {
         return encrypted;
     }
 
-    private static final char HEX_DIGITS[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
-
-    private static String toHexString(byte[] b) {
-        StringBuilder sb = new StringBuilder(b.length * 2);
-        for (int i = 0; i < b.length; i++) {
-            sb.append(HEX_DIGITS[(b[i] & 0xf0) >>> 4]);
-            sb.append(HEX_DIGITS[b[i] & 0x0f]);
-        }
-        return sb.toString();
-    }
 
    private static final BASE64Encoder BASE_64_ENCODER = new BASE64Encoder();
 

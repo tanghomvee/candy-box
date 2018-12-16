@@ -1,13 +1,12 @@
-package com.candybox.user.dao;
+package com.candybox.vender.dao;
 
-import com.candybox.user.dao.model.User;
+import com.candybox.vender.dao.model.Candy;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * Copyright (c) 2018$. ddyunf.com all rights reserved
@@ -17,7 +16,7 @@ import java.util.List;
  * @Description TODO(用一句话描述该文件做什么)
  * @date 2018-04-16 10:50
  */
-public interface  UserDao extends JpaRepository<User, Long> , UserDaoExt {
+public interface CandyDao extends JpaRepository<Candy, Long> , CandyDaoExt {
 
 
 

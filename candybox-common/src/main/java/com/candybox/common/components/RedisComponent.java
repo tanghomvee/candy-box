@@ -57,8 +57,7 @@ public class RedisComponent {
 
     @Resource(name = "redisTemplate")
     private RedisTemplate<String, String> redisTemplate;
-    @Resource(name = "slaveRedisTemplate")
-    private RedisTemplate<String, String> slaveRedisTemplate;
+
     /**
     * 原子自增
     * @author  Homvee.Tang(tanghongwei@ddcloudf.com)
@@ -227,7 +226,7 @@ public class RedisComponent {
     public String get(final String key) {
         String result = null;
         try{
-            ValueOperations<String, String> operations = slaveRedisTemplate.opsForValue();
+            ValueOperations<String, String> operations = redisTemplate.opsForValue();
             result = operations.get(key);
         }catch (Exception ex){
             LOGGER.error("get key:{} from slave redis error" , key , ex);
@@ -296,7 +295,7 @@ public class RedisComponent {
      */
     public String hGet(final String redisKey  , final String filed) {
         try {
-            String result = slaveRedisTemplate.execute(new RedisCallback<String>() {
+            String result = redisTemplate.execute(new RedisCallback<String>() {
                 @Override
                 public String doInRedis(RedisConnection connection) throws DataAccessException {
                     JedisCommands commands = (JedisCommands) connection.getNativeConnection();

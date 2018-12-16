@@ -57,7 +57,7 @@
 			<mvc:exclude-mapping path="/favicon.ico" />
 			<mvc:exclude-mapping path="/readme.md" />
 
-			<bean class="com.homvee.livebroadcast.web.interceptors.UsrLoginInterceptor"/>
+			<bean class="com.candybox.user.web.interceptors.UsrLoginInterceptor"/>
 		</mvc:interceptor>
 
 		<!--&lt;!&ndash;权限拦截&ndash;&gt;

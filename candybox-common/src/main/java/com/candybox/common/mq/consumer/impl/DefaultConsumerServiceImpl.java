@@ -1,6 +1,5 @@
 package com.candybox.common.mq.consumer.impl;
 
-import com.candybox.common.enums.SeparatorEnum;
 import com.candybox.common.mq.consumer.DefaultConsumerService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
@@ -12,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * @author ddyunf
@@ -39,7 +37,7 @@ public class DefaultConsumerServiceImpl implements DefaultConsumerService {
 
         defaultMQPushConsumer = new DefaultMQPushConsumer();
         defaultMQPushConsumer.setConsumerGroup(consumerGroupName);
-        defaultMQPushConsumer.setInstanceName(consumerName + SeparatorEnum.UNDERLINE.getVal() + (UUID.randomUUID().toString().replace("-" , "")));
+       // defaultMQPushConsumer.setInstanceName(consumerName + SeparatorEnum.UNDERLINE.getVal() + (UUID.randomUUID().toString().replace("-" , "")));
         defaultMQPushConsumer.setNamesrvAddr(nameSrvAddrs);
         defaultMQPushConsumer.setVipChannelEnabled(false);
         if (!StringUtils.isEmpty(clientIP)){

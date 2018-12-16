@@ -1,12 +1,16 @@
 package com.candybox.common.enums;
 
 /**
- * 有效标志
  *
  * @author ddyunf
  */
-public enum OnlineEnum {
-    ONLINE(1,"上线"), OFFLINE(0,"下线");
+public enum OperateKindEnum {
+	SIGN(1,"签到"),
+	REFERRER(2,"c"),
+
+	;
+
+
 
 	private Integer val;
 	private String desc;
@@ -19,14 +23,14 @@ public enum OnlineEnum {
 		return desc;
 	}
 
-	OnlineEnum(Integer val, String desc) {
+	OperateKindEnum(Integer val, String desc) {
 		this.val = val;
 		this.desc = desc;
 	}
 
 
-	public  static OnlineEnum getByVal(Integer val){
-		for (OnlineEnum tmp : OnlineEnum.values()){
+	public  static OperateKindEnum getByVal(Integer val){
+		for (OperateKindEnum tmp : OperateKindEnum.values()){
 			if(tmp.val.equals(val)){
 				return tmp;
 			}

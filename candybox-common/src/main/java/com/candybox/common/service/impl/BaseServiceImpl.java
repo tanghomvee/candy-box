@@ -20,8 +20,6 @@ public class BaseServiceImpl<T  , PK extends Serializable> implements BaseServic
 
     @Resource(name = "redisTemplate")
     protected RedisTemplate<String, String> redisTemplate;
-    @Resource(name = "slaveRedisTemplate")
-    protected RedisTemplate<String, String> slaveRedisTemplate;
 
     @Override
     public Pager convertPage2Pager(Page page){

@@ -1,4 +1,4 @@
-package com.candybox.user.web.ctrls;
+package com.candybox.vender.web.ctrls;
 
 import com.candybox.common.web.ctrls.BaseCtrl;
 import org.springframework.stereotype.Controller;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @date 2018-04-16 11:14
  */
 @Controller
-@RequestMapping(path = "/user")
-public class UserCtrl extends BaseCtrl {
+@RequestMapping(path = "/candy")
+public class CandyCtrl extends BaseCtrl {
 
 
 

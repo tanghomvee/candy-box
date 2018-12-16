@@ -1,5 +1,6 @@
 package com.candybox.common.utils;
 
+import com.mysql.cj.util.StringUtils;
 import sun.misc.BASE64Decoder;
 
 import java.io.File;

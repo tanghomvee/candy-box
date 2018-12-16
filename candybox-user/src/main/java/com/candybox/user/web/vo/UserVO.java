@@ -1,14 +1,10 @@
-package com.candybox.user.dao.model;
+package com.candybox.user.web.vo;
 
-import com.candybox.common.dao.model.BaseEntity;
+import com.candybox.common.web.vo.BaseVO;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.util.Date;
 
-@Entity
-@Table(name = "t_user")
-public class User extends BaseEntity {
+public class UserVO extends BaseVO {
     /**
      * 用户名
      */
@@ -28,14 +24,15 @@ public class User extends BaseEntity {
     private String mobile;
 
     /**
-     * 推荐人
+     * 推荐人用户名
      */
-    private Long referrer;
+    private Long referrerName;
 
     /**
      * 用户微信的OpenID
      */
     private String openId;
+
 
     public String getUserName() {
         return userName;
@@ -69,12 +66,12 @@ public class User extends BaseEntity {
         this.mobile = mobile;
     }
 
-    public Long getReferrer() {
-        return referrer;
+    public Long getReferrerName() {
+        return referrerName;
     }
 
-    public void setReferrer(Long referrer) {
-        this.referrer = referrer;
+    public void setReferrerName(Long referrerName) {
+        this.referrerName = referrerName;
     }
 
     public String getOpenId() {
@@ -87,12 +84,12 @@ public class User extends BaseEntity {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "UserVO{" +
                 "userName='" + userName + '\'' +
                 ", pwd='" + pwd + '\'' +
                 ", regTime=" + regTime +
                 ", mobile='" + mobile + '\'' +
-                ", referrer=" + referrer +
+                ", referrerName=" + referrerName +
                 ", openId='" + openId + '\'' +
                 ", id=" + id +
                 ", yn=" + yn +

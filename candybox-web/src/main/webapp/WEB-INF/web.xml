@@ -4,7 +4,7 @@
 		 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 		 id="WebApp_ID" version="3.1">
 
-	<display-name>slst</display-name>
+	<display-name>candy-box</display-name>
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath*:spring-cfg-context.xml</param-value>

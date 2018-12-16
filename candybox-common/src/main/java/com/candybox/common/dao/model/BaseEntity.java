@@ -26,8 +26,9 @@ public class BaseEntity implements Serializable {
     protected Long id;
 
     /**
+     * @see com.candybox.common.enums.YNEnum
      * 是否有效
-     * 1:有效,-1无效
+     * 1:有效,0无效
      */
     protected Integer yn;
 

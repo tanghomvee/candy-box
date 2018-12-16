@@ -15,7 +15,7 @@
         <property name="checkThreadPoolMaxSize" value="${mq.check.max}" />
     </bean>
     <!--通用 生产者-->
-    <bean id="defaultProducerService"  parent="mqConfig" class="com.homvee.livebroadcast.common.mq.producer.impl.DefaultProducerServiceImpl">
+    <bean id="defaultProducerService"  parent="mqConfig" class="com.candybox.common.mq.producer.impl.DefaultProducerServiceImpl">
         <property name="producerName" value="${mq.producer.name}" />
     </bean>
 

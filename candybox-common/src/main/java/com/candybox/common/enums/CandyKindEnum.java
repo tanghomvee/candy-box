@@ -5,8 +5,13 @@ package com.candybox.common.enums;
  *
  * @author ddyunf
  */
-public enum OnlineEnum {
-    ONLINE(1,"上线"), OFFLINE(0,"下线");
+public enum CandyKindEnum {
+	GOLD(1,"黄金"),
+	DIAMOND(2,"钻石"),
+
+	;
+
+
 
 	private Integer val;
 	private String desc;
@@ -19,14 +24,14 @@ public enum OnlineEnum {
 		return desc;
 	}
 
-	OnlineEnum(Integer val, String desc) {
+	CandyKindEnum(Integer val, String desc) {
 		this.val = val;
 		this.desc = desc;
 	}
 
 
-	public  static OnlineEnum getByVal(Integer val){
-		for (OnlineEnum tmp : OnlineEnum.values()){
+	public  static CandyKindEnum getByVal(Integer val){
+		for (CandyKindEnum tmp : CandyKindEnum.values()){
 			if(tmp.val.equals(val)){
 				return tmp;
 			}

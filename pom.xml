@@ -10,6 +10,7 @@
     <modules>
         <module>candybox-common</module>
         <module>candybox-user</module>
+        <module>candybox-vender</module>
         <module>candybox-web</module>
     </modules>
     <properties>

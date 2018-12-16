@@ -11,17 +11,16 @@
     </parent>
 
     <groupId>com.candybox</groupId>
-    <artifactId>candybox-user</artifactId>
+    <artifactId>candybox-vender</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
             <groupId>com.candybox</groupId>
-            <artifactId>candybox-vender</artifactId>
+            <artifactId>candybox-common</artifactId>
             <version>${project.version}</version>
         </dependency>
 
     </dependencies>
-    
 </project>

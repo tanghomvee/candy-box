@@ -3,7 +3,7 @@ package com.candybox.user.web.interceptors;
 import com.alibaba.fastjson.JSON;
 import com.candybox.common.components.RedisComponent;
 import com.candybox.common.web.vo.Msg;
-import com.candybox.common.web.vo.UserVO;
+import com.candybox.user.web.vo.UserVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
