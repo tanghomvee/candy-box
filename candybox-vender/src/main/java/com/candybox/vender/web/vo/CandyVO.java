@@ -43,6 +43,33 @@ public class CandyVO extends BaseVO {
      */
     private Integer online;
 
+    /**
+     * 糖果图标路径
+     */
+    private String icon;
+
+    /**
+     * 糖果描述信息
+     */
+    private String detail;
+
+    public String getDetail() {
+
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
     public String getCandyName() {
         return candyName;
     }
@@ -109,6 +136,8 @@ public class CandyVO extends BaseVO {
                 ", remainder=" + remainder +
                 ", kind=" + kind +
                 ", online=" + online +
+                ", icon='" + icon + '\'' +
+                ", detail='" + detail + '\'' +
                 ", id=" + id +
                 ", yn=" + yn +
                 ", creator='" + creator + '\'' +

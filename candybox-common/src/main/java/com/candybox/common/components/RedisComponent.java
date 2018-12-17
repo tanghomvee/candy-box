@@ -206,7 +206,7 @@ public class RedisComponent {
                 public String doInRedis(RedisConnection connection) throws DataAccessException {
                     JedisCommands commands = (JedisCommands) connection.getNativeConnection();
                     String uuid = UUID.randomUUID().toString();
-                    LOCK_VAL.set(uuid);
+                   //LOCK_VAL.set(uuid);
                     //PX:毫秒;EX:秒
                     return commands.set(key, uuid, "NX", "EX", expire);
                 }

@@ -1,6 +1,7 @@
 package com.candybox.common.web.ctrls;
 
 import com.candybox.common.components.RedisComponent;
+import com.candybox.common.constants.SessionKey;
 import com.candybox.common.service.SysCfgService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +28,10 @@ public class BaseCtrl {
 
     public BaseCtrl() {
         LOGGER = LoggerFactory.getLogger(this.getClass());
+    }
+
+    public Object getUser(){
+        return  session.getAttribute(SessionKey.USER);
     }
 
 }

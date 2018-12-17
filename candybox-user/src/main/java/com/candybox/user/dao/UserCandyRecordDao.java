@@ -2,6 +2,10 @@ package com.candybox.user.dao;
 
 import com.candybox.user.dao.model.UserCandyRecord;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * Copyright (c) 2018$. ddyunf.com all rights reserved
@@ -14,4 +18,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface UserCandyRecordDao extends JpaRepository<UserCandyRecord, Long> , UserCandyRecordDaoExt {
 
 
+    @Query(value = "select * from t_user_candy_record where userId=?1 and candyId=?2 and kind=?3 and operateTime >= (?4)/1000 and operateTime <= (?5)/1000 AND YN=?6" , nativeQuery=true)
+    List<UserCandyRecord> findByUserIdAndCandyIdAndKindAndTimesAndYn(Long userId, Long candyId, Integer kind, Date fromDate, Date toDate, Integer yn);
 }

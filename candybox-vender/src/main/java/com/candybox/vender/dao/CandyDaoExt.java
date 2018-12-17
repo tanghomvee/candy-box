@@ -1,5 +1,7 @@
 package com.candybox.vender.dao;
 
+import com.candybox.common.web.vo.Pager;
+
 /**
  * Copyright (c) 2018$. ddyunf.com all rights reserved
  *
@@ -9,4 +11,5 @@ package com.candybox.vender.dao;
  * @date 2018-04-16 18:58
  */
 public interface CandyDaoExt {
+    Pager listPage(Pager pager);
 }

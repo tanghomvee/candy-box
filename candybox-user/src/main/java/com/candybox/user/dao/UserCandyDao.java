@@ -14,4 +14,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface UserCandyDao extends JpaRepository<UserCandy, Long> , UserCandyDaoExt {
 
 
+    UserCandy findByUserIdAndCandyIdAndYn(Long userId, Long candyId, Integer yn);
 }

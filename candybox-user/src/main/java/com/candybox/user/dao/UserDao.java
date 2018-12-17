@@ -24,4 +24,20 @@ public interface  UserDao extends JpaRepository<User, Long> , UserDaoExt {
     @Modifying
     @Query("update User u set u.pwd=:pwd,u.changer=:userName,u.changeTime=:curDate where u.id=:id")
     Integer modifyUserPwd(@Param("pwd") String pwd, @Param("id") Long id, @Param("userName") String userName, @Param("curDate") Date curDate);
+
+    /**
+     * find valid user by username
+     * @param userName
+     * @param yn
+     * @return
+     */
+    User findByUserNameAndYn(String userName, Integer yn);
+
+    /**
+     * find valid user by mobile
+     * @param userName
+     * @param yn
+     * @return
+     */
+    User findByMobileAndYn(String userName, Integer yn);
 }

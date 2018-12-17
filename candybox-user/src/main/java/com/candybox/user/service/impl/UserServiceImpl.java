@@ -1,5 +1,6 @@
 package com.candybox.user.service.impl;
 
+import com.candybox.common.enums.YNEnum;
 import com.candybox.common.service.impl.BaseServiceImpl;
 import com.candybox.user.dao.UserDao;
 import com.candybox.user.dao.model.User;
@@ -23,4 +24,18 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
     private UserDao userDao;
 
 
+    @Override
+    public User findByUserName(String userName) {
+        return userDao.findByUserNameAndYn(userName , YNEnum.YES.getVal());
+    }
+
+    @Override
+    public User findByMobile(String mobile) {
+        return userDao.findByMobileAndYn(mobile , YNEnum.YES.getVal());
+    }
+
+    @Override
+    public User save(User user) {
+        return userDao.save(user);
+    }
 }

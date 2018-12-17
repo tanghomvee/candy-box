@@ -27,7 +27,7 @@ import java.util.Set;
  */
 public class JpaDaoSupport<T extends Serializable, ID extends Serializable>{
 
-    protected static Logger LOGGER = null;
+    protected  Logger LOGGER = null;
 
 
     public JpaDaoSupport() {

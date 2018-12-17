@@ -1,6 +1,7 @@
 package com.candybox.vender.service.impl;
 
 import com.candybox.common.service.impl.BaseServiceImpl;
+import com.candybox.common.web.vo.Pager;
 import com.candybox.vender.dao.CandyDao;
 import com.candybox.vender.dao.model.Candy;
 import com.candybox.vender.service.CandyService;
@@ -21,4 +22,8 @@ public class CandyServiceImpl extends BaseServiceImpl<Candy, Long> implements Ca
     @Resource
     private CandyDao candyDao;
 
+    @Override
+    public Pager listPage(Pager pager) {
+        return candyDao.listPage(pager);
+    }
 }

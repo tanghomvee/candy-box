@@ -47,6 +47,17 @@ public class Candy extends BaseEntity {
      */
     private Integer online;
 
+    /**
+     * 糖果图标路径
+     */
+    private String icon;
+
+    /**
+     * 糖果描述信息
+     */
+    private String detail;
+
+
     public String getCandyName() {
         return candyName;
     }
@@ -103,6 +114,24 @@ public class Candy extends BaseEntity {
         this.online = online;
     }
 
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+
+    public String getDetail() {
+
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
     @Override
     public String toString() {
         return "Candy{" +
@@ -113,6 +142,8 @@ public class Candy extends BaseEntity {
                 ", remainder=" + remainder +
                 ", kind=" + kind +
                 ", online=" + online +
+                ", icon='" + icon + '\'' +
+                ", detail='" + detail + '\'' +
                 ", id=" + id +
                 ", yn=" + yn +
                 ", creator='" + creator + '\'' +
