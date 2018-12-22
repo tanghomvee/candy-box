@@ -38,4 +38,9 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
     public User save(User user) {
         return userDao.save(user);
     }
+
+    @Override
+    public Long statsReferrer(Long referrer) {
+        return userDao.statsReferrer(referrer);
+    }
 }

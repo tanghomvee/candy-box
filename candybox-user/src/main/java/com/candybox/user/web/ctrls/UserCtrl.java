@@ -5,6 +5,7 @@ import com.candybox.common.web.ctrls.BaseCtrl;
 import com.candybox.common.web.vo.Msg;
 import com.candybox.user.dao.model.User;
 import com.candybox.user.service.UserService;
+import com.candybox.user.web.vo.UserVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,13 @@ public class UserCtrl extends BaseCtrl {
     @Resource
     private UserService userService;
 
+    /**
+     * 注册
+     * @param mobile
+     * @param chkRand
+     * @param referrer
+     * @return
+     */
     @RequestMapping(path = "/reg" , method = {RequestMethod.POST ,RequestMethod.GET})
     @ResponseBody
     public Msg reg(String mobile , String chkRand,Long referrer){
@@ -66,6 +74,12 @@ public class UserCtrl extends BaseCtrl {
         return Msg.success();
     }
 
+    /**
+     * 密码登录
+     * @param userName
+     * @param pwd
+     * @return
+     */
     @RequestMapping(path = "/login/u" , method = {RequestMethod.POST ,RequestMethod.GET})
     @ResponseBody
     public Msg login(String userName , String pwd){
@@ -98,6 +112,12 @@ public class UserCtrl extends BaseCtrl {
         return Msg.success();
     }
 
+    /**
+     * d短信验证码登录
+     * @param mobile
+     * @param chkRand
+     * @return
+     */
     @RequestMapping(path = "/login/m" , method = {RequestMethod.POST ,RequestMethod.GET})
     @ResponseBody
     public Msg loginByMobile(String mobile , String chkRand){
@@ -124,5 +144,17 @@ public class UserCtrl extends BaseCtrl {
         return Msg.success();
     }
 
+    /**
+     * 推荐统计
+     * @return
+     */
 
+    @RequestMapping(path = "/statsReferrer" , method = {RequestMethod.POST ,RequestMethod.GET})
+    @ResponseBody
+    public Msg statsReferrer(){
+
+        UserVO userVO = (UserVO) getUser();
+        Long cnt = userService.statsReferrer(userVO.getId());
+        return Msg.success(cnt);
+    }
 }

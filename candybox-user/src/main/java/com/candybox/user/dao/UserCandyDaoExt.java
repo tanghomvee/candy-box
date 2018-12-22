@@ -1,5 +1,7 @@
 package com.candybox.user.dao;
 
+import com.candybox.common.web.vo.Pager;
+
 /**
  * Copyright (c) 2018$. ddyunf.com all rights reserved
  *
@@ -11,4 +13,5 @@ package com.candybox.user.dao;
 public interface UserCandyDaoExt  {
 
 
+    Pager listUserCandy(Long userId, Pager pager);
 }

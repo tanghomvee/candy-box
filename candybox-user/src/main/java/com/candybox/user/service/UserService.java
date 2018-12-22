@@ -26,4 +26,6 @@ public interface UserService extends BaseService<User, Long> {
      * @return
      */
     User save(User user);
+
+    Long statsReferrer(Long referrer);
 }

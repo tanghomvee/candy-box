@@ -7,6 +7,7 @@ import com.candybox.common.enums.SeparatorEnum;
 import com.candybox.common.enums.YNEnum;
 import com.candybox.common.service.impl.BaseServiceImpl;
 import com.candybox.common.utils.DateUtils;
+import com.candybox.common.web.vo.Pager;
 import com.candybox.user.dao.UserCandyDao;
 import com.candybox.user.dao.model.UserCandy;
 import com.candybox.user.dao.model.UserCandyRecord;
@@ -141,5 +142,11 @@ public class UserCandyServiceImpl extends BaseServiceImpl<UserCandy, Long> imple
         }
 
         return 1;
+    }
+
+    @Override
+    public Pager listUserCandy(Long userId, Pager pager) {
+
+        return userCandyDao.listUserCandy(userId , pager);
     }
 }

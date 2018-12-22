@@ -4,6 +4,7 @@ import com.candybox.common.constants.RedisKey;
 import com.candybox.common.enums.SeparatorEnum;
 import com.candybox.common.web.ctrls.BaseCtrl;
 import com.candybox.common.web.vo.Msg;
+import com.candybox.common.web.vo.Pager;
 import com.candybox.user.service.UserCandyService;
 import com.candybox.user.web.vo.UserVO;
 import org.springframework.stereotype.Controller;
@@ -29,8 +30,11 @@ public class UserCandyCtrl extends BaseCtrl {
     private UserCandyService userCandyService;
 
 
-
-
+    /**
+     * 领取糖果
+     * @param candyId
+     * @return
+     */
     @RequestMapping(path = "/received" , method = {RequestMethod.POST ,RequestMethod.GET})
     @ResponseBody
     public Msg received(Long candyId){
@@ -61,5 +65,24 @@ public class UserCandyCtrl extends BaseCtrl {
         return Msg.success();
     }
 
+    /**
+     * 用户已经领取的糖果
+     * @param pager
+     * @return
+     */
+    @RequestMapping(path = "/listPage" , method = {RequestMethod.POST ,RequestMethod.GET})
+    @ResponseBody
+    public Msg listPage(Pager pager){
+
+        UserVO userVO = (UserVO) getUser();
+        try {
+           pager =  userCandyService.listUserCandy(userVO.getId() , pager);
+        } catch (Exception e) {
+            LOGGER.error("查询用户领取的糖果异常" , e);
+            return Msg.error("查询用户领取的糖果失败");
+        }
+
+        return Msg.success(pager);
+    }
 
 }

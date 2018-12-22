@@ -2,12 +2,7 @@ package com.candybox.user.dao;
 
 import com.candybox.user.dao.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-
-import java.util.Date;
-import java.util.List;
 
 /**
  * Copyright (c) 2018$. ddyunf.com all rights reserved
@@ -19,11 +14,6 @@ import java.util.List;
  */
 public interface  UserDao extends JpaRepository<User, Long> , UserDaoExt {
 
-
-
-    @Modifying
-    @Query("update User u set u.pwd=:pwd,u.changer=:userName,u.changeTime=:curDate where u.id=:id")
-    Integer modifyUserPwd(@Param("pwd") String pwd, @Param("id") Long id, @Param("userName") String userName, @Param("curDate") Date curDate);
 
     /**
      * find valid user by username
@@ -40,4 +30,8 @@ public interface  UserDao extends JpaRepository<User, Long> , UserDaoExt {
      * @return
      */
     User findByMobileAndYn(String userName, Integer yn);
+
+
+    @Query(value = "SELECT count(id) FROM t_user where yn =1 and referrer=?1" , nativeQuery = true)
+    Long statsReferrer(Long referrer);
 }
